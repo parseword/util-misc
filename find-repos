@@ -1,0 +1,61 @@
+#!/usr/local/bin/php
+<?php
+/*
+ * find-repos
+ * <https://github.com/ampersign/util-misc/>
+ *
+ * Find all top-level git or svn repositories on a system. This assumes
+ *
+ * 1. Your mlocate database is current and your "locate" command works;
+ * 2. You don't have nested repos (one repo checked out inside another)
+ *
+ *  Usage: find-repos [git|svn]
+ *
+ * Output: A list of repository file paths suitable for piping to xargs
+ * e.g.    find-repos svn | xargs svn status
+ */
+
+//Running as a regular user won't necessarily find all repositories
+if (posix_getuid() !== 0) {
+    echo "You must become root to run this utility.\n";
+    exit(-1);
+}
+//Either "git" or "svn" must be passed as the only command line argument
+if (count($argv) != 2 || !in_array($argv[1], ['git', 'svn'])) {
+    echo "Usage: {$argv['0']} [git|svn]\n";
+    exit(-1);
+}
+ 
+$return = $output = null;
+exec('/usr/bin/locate ' . $argv[1] . ' | /bin/grep -E "\.' . $argv[1] . '$"', 
+    $output, $return);
+
+//grep returns 0 if match, 1 if no match
+if ($return === 0) {
+    
+    $repos = array();
+    
+    foreach ($output as $path) {
+        $temp = $path = pathinfo(trim($path))['dirname'];
+        //See if we already identified a parent directory as a repository
+        while ($parent = pathinfo($temp)) {
+            if (in_array($parent['dirname'], $repos)) {
+                //This directory is part of a higher level repo, skip it
+                break;
+            }
+            $temp = $parent['dirname'];
+            if ($temp == '/') {
+                //No parent repo found, this is a top level repo
+                $repos[] = $path;
+                break;
+            }
+        }
+    }
+
+    //Display results if any
+    if (count($repos) > 0) {
+        foreach ($repos as $repo) {
+            echo "$repo\n";
+        }
+    }
+}
