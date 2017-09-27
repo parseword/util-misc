@@ -1,0 +1,70 @@
+#!/usr/bin/php
+<?php
+/*
+ * Copyright 2017 Shaun Cummiskey, <shaun@shaunc.com> <http://shaunc.com>
+ * <https://github.com/parseword/util-misc/>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+ 
+/* 
+ * Check for available port updates and send an email if any are found.
+ *
+ * This script requires portmaster (/usr/ports/ports-mgmt/portmaster)
+ * and assumes you've checked out the ports tree with Subversion, as 
+ * described in <https://www.freebsd.org/doc/handbook/ports-using.html>
+ */
+
+//This file defines ADMINISTRATOR_RECIPIENT and ADMINISTRIVIA_SUBJECT_PREPEND
+require_once('/usr/local/etc/config/admin.conf');
+
+//Update the ports tree with Subversion
+exec('/usr/local/bin/svn up /usr/ports >/tmp/port-check-svn.log 2>&1');
+
+//Run portmaster to check for updates
+$return = null;
+$output = null;
+exec('/usr/local/sbin/portmaster -L | grep -B1 "New version available" | grep -v "\-\-"', $output, $return);
+
+//grep returns 0 if match, 1 if no match
+if ($return === 0) {
+    
+    $i = 0;
+    $commands = array();
+    $message = "Updates are available for the following ports:\n\n";
+    
+    //Build a list of changed ports, and portmaster commands to update them
+    foreach ($output as $line) {
+        if ($i++ % 2 == 0) {
+            //Even-numbered lines contain the current version needed for portmaster
+            $port = str_replace('===>>> ', '', trim($line));
+            $commands[] = "portmaster -Kvw {$port}"; 
+        }
+        else {
+            //Odd-numbered lines contain the new version number
+            $port = str_replace('===>>> New version available: ', '', trim($line));
+            $message .=  "$port\n";
+        }
+    }
+    
+    $message .= "\nTo upgrade all, run: portmaster -avw\n\nTo upgrade individual ports,\n\n";
+    $message .= join("\n", $commands);
+    
+    $subject = defined('ADMINISTRIVIA_SUBJECT_PREPEND') ? ADMINISTRIVIA_SUBJECT_PREPEND : '';
+    $subject .= 'portmaster reports ' . count($commands) . ' update' 
+        . (count($commands) > 1 ? 's' : '') . ' on ' . gethostname();
+    
+    mail(ADMINISTRATOR_RECIPIENT, $subject, $message, 'From: root@' . gethostname());
+
+    echo 'A message detailing available port updates has been sent under separate cover.';    
+}
