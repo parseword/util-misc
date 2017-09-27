@@ -21,8 +21,8 @@ changes across your entire filesystem at once:
 ### ports-update-check
 
 This script checks for available ports updates on a FreeBSD system. It first 
-brings the ports tree current using Subversion, then runs `portmaster -L` to  
-query for updates. If any are found, you get an email notification containing  
+brings the ports tree current using Subversion, then runs `portmaster -L` to 
+query for updates. If any are found, you get an email notification containing 
 the necessary `portmaster` commands to upgrade each port, like this:
 
     Updates are available for the following ports:
