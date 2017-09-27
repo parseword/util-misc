@@ -41,7 +41,7 @@ if (count($argv) != 2 || !in_array($argv[1], ['git', 'svn'])) {
 }
  
 $return = $output = null;
-exec('/usr/bin/locate ' . $argv[1] . ' | /bin/grep -E "\.' . $argv[1] . '$"', 
+exec('/usr/bin/locate ' . $argv[1] . ' | /bin/grep -E "\/\.' . $argv[1] . '$"', 
     $output, $return);
 
 //grep returns 0 if match, 1 if no match
