@@ -43,3 +43,17 @@ Drop the script into
 You'll need to define a constant named `ADMINISTRATOR_RECIPIENT` and, optionally, 
 one named `ADMINISTRIVIA_SUBJECT_PREPEND`. I keep these in an external config file 
 that isn't included here.
+
+### report-uri-expect-ct.php
+
+This script acts as a reporting endpoint for 
+the [`Expect-CT`](https://tools.ietf.org/html/draft-ietf-httpbis-expect-ct-02) HTTP 
+security header. If you run a website that sets this header, you can use this 
+script to receive error reports from your users' browsers. Place this file on 
+your server and set the Expect-CT header's `report-uri` value to point there. 
+The script accepts and replies to both `OPTIONS` and `POST` requests.
+
+You'll need to define a constant named `ADMINISTRATOR_RECIPIENT` and comment 
+out the `require_once()` line, I keep this and other constants in an external 
+config file that isn't included here.
+
