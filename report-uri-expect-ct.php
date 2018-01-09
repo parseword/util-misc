@@ -34,8 +34,9 @@
  * The appropriate response will be sent depending upon the HTTP verb.
  */
 
-//Import ADMINISTRATOR_RECIPIENT (or define your own recipient below, //shaunc)
+//Import ADMINISTRATOR_RECIPIENT (or define your own recipient below)
 require_once('/etc/config/admin.conf');
+//define('ADMINISTRATOR_RECIPIENT', 'www-meta@example.com');
 
 //Test for a CORS preflight
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     //Explicitly allow whatever custom headers, if any, the requestor hinted
     foreach (getallheaders() as $key=>$val) {
         if (strcasecmp($key, 'Access-Control-Request-Headers') == 0) {
-            header('Access-Control-Allow-Headers:' . $val);
+            header('Access-Control-Allow-Headers:' . htmlentities($val, ENT_QUOTES));
             break;
         }
     }
