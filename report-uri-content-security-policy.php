@@ -50,9 +50,17 @@ $filter_scripts = [
     //Adblock Plus on Safari
     'safari-extension://org.adblockplus.adblockplussafari',
     //This is either an Adblock blocker, or an Adblock blocker blocker (trace 
-    //buster buster!), maybe https://greasyfork.org/en/scripts/15947-adblock/code
+    //buster buster!), maybe <https://greasyfork.org/en/scripts/15947-adblock/code>
     'var BlockAdBlock = function',
     'var FuckAdBlock = function',
+    //Vim Vixen <https://addons.mozilla.org/en-US/firefox/addon/vim-vixen/>
+    '.vimvixen',
+    //Unknown
+    'makes some black text light colored',
+    //ChromeIPass extension <https://github.com/pfn/passifox/blob/master/chromeipass/>
+    '.cip-genpw-icon.cip-icon-key-small',
+    //Ghostery
+    '@media print {#ghostery-purple-box',
 ];
 
 //Document URIs that we don't want to be emailed about
