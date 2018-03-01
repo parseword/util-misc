@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2017 Shaun Cummiskey, <shaun@shaunc.com> <http://shaunc.com>
+ * Copyright 2017-2018 Shaun Cummiskey, <shaun@shaunc.com> <https://shaunc.com>
  * <https://github.com/parseword/util-misc/>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,10 +61,14 @@ $filter_scripts = [
     '.cip-genpw-icon.cip-icon-key-small',
     //Ghostery
     '@media print {#ghostery-purple-box',
+    //Evernote Clipper extension <https://evernote.com/products/webclipper>
+    'Copyright 2014 Evernote Corporation',
 ];
 
-//Document URIs that we don't want to be emailed about
+//Document URIs and/or blocked URIs that we don't want to be emailed about
 $filter_uris = [
+    //Don't generate reports when Google Translate embeds an image
+    'https://www.gstatic.com/images/branding/product/2x/translate_24dp.png',
     //In Firefox, "View Source" generates a CSP violation
     //<https://bugs.chromium.org/p/chromium/issues/detail?id=699108>
     'view-source',
@@ -109,6 +113,15 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST'
     if (count($filter_uris) > 0 && !empty($report['csp-report']['document-uri'])) {
         foreach ($filter_uris as $filter) {
             if (strpos($report['csp-report']['document-uri'], $filter) !== false) {
+                exit;
+            }
+        }
+    }
+    
+    //See if we want to suppress this report based on blocked-uri
+    if (count($filter_uris) > 0 && !empty($report['csp-report']['blocked-uri'])) {
+        foreach ($filter_uris as $filter) {
+            if (strpos($report['csp-report']['blocked-uri'], $filter) !== false) {
                 exit;
             }
         }
