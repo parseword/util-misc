@@ -47,6 +47,8 @@ $filter_scripts = [
     "Object.defineProperty(window, \'ysmm\',",
     //Kaspersky Internet Security
     'window.klTabId_kis',
+    //Adblock Plus <https://issues.adblockplus.org/ticket/5953#comment:6>
+    '(function injected(eventName, injectedIn',
     //Adblock Plus on Safari
     'safari-extension://org.adblockplus.adblockplussafari',
     //This is either an Adblock blocker, or an Adblock blocker blocker (trace 
