@@ -1,0 +1,39 @@
+// Known Facebook domains to add to your DNS sinkhole's named.conf file
+// bind zone format
+// <https://github.com/parseword/util-misc/raw/master/block-facebook/facebook-zones.txt>
+//
+// blackhole.zone can be downloaded from:
+// <https://raw.githubusercontent.com/parseword/nolovia/master/blackhole.zone>
+
+zone "facebook.com" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "facebook.net" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "fb.com" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "fb.me" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "fbcdn.com" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "fbcdn.net" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "fbsbx.com" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "fbsbx.net" IN { 
+    type master;
+    file "/path/to/blackhole.zone";
+};
