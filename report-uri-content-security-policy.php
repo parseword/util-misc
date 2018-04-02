@@ -71,6 +71,8 @@ $filter_scripts = [
 $filter_uris = [
     //Don't generate reports when Google Translate embeds an image
     'https://www.gstatic.com/images/branding/product/2x/translate_24dp.png',
+    //Don't report when visitors have forced a Google font through a user style
+    'https://fonts.gstatic.com/',
     //In Firefox, "View Source" generates a CSP violation
     //<https://bugs.chromium.org/p/chromium/issues/detail?id=699108>
     'view-source',
