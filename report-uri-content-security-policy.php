@@ -65,6 +65,8 @@ $filter_scripts = [
     '@media print {#ghostery-purple-box',
     //Evernote Clipper extension <https://evernote.com/products/webclipper>
     'Copyright 2014 Evernote Corporation',
+    //CSS Exfil Protection <https://addons.mozilla.org/en-US/firefox/addon/css-exfil-protection/>
+    'input,input ~ * { background-image:none ...',
 ];
 
 //Document URIs and/or blocked URIs that we don't want to be emailed about
