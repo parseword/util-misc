@@ -44,6 +44,21 @@ You'll need to define a constant named `ADMINISTRATOR_RECIPIENT` and, optionally
 one named `ADMINISTRIVIA_SUBJECT_PREPEND`. I keep these in an external config file 
 that isn't included here.
 
+### remote-repository-check.php
+
+In my environments, every website is a checked-out copy of a version control 
+repository. 
+
+This script runs "svn status" or "git status" against any number of remote 
+repositories, and sends an email notification if any repository isn't clean, 
+providing an early warning of potential website compromise or file tampering. 
+I suggest setting it as a cron job that runs at least hourly.
+
+You need to have passwordless key-based SSH set up between your "monitor" 
+server and any target servers. Configuring the script is straightforward, 
+just follow the examples to define your remote repositories. For more, see 
+the article [*Website integrity monitoring through version control*](https://shaunc.com/go/kjj6wxDh18gS).
+
 ### report-uri-content-security-policy.php
 
 This script acts as a reporting endpoint for 
