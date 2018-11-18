@@ -18,6 +18,12 @@ changes across your entire filesystem at once:
     ?       /etc/ssh/moduli.orig
     M       /usr/local/apache2/conf/httpd.conf
 
+### nsa-dhs-news.php
+
+A script to generate an RSS "news feed" full of DHS watchlist terms and NSA 
+cryptonyms. For use with the [TrackMeNot](https://cs.nyu.edu/trackmenot/) browser 
+extension.
+
 ### ports-update-check
 
 This script checks for available ports updates on a FreeBSD system. It first 
