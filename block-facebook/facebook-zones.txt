@@ -37,3 +37,7 @@ zone "fbsbx.net" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
+zone "facebook-program.com" IN {
+    type master;
+    file "/path/to/blackhole.zone";
+};
