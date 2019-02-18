@@ -78,6 +78,8 @@ $filter_uris = [
     //In Firefox, "View Source" generates a CSP violation
     //<https://bugs.chromium.org/p/chromium/issues/detail?id=699108>
     'view-source',
+    //Miscellaneous Chrome extensions
+    'chrome-extension',
 ];
 
 //Test for a CORS preflight
