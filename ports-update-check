@@ -21,15 +21,15 @@
  * Check for available port updates and send an email if any are found.
  *
  * This script requires portmaster (/usr/ports/ports-mgmt/portmaster)
- * and assumes you've checked out the ports tree with Subversion, as 
- * described in <https://www.freebsd.org/doc/handbook/ports-using.html>
+ * and assumes you've checked out the ports tree with git, as 
+ * described in <https://docs.freebsd.org/en/books/handbook/ports/>
  */
 
 //This file defines ADMINISTRATOR_RECIPIENT and ADMINISTRIVIA_SUBJECT_PREPEND
 require_once('/usr/local/etc/config/admin.conf');
 
-//Update the ports tree with Subversion
-exec('/usr/local/bin/svn up /usr/ports >/tmp/port-check-svn.log 2>&1');
+//Update the ports tree with git
+exec('/usr/local/bin/git -C /usr/ports pull --rebase >/tmp/port-check-svn.log 2>&1');
 
 //Run portmaster to check for updates
 $return = null;
