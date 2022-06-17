@@ -5,39 +5,51 @@
 // blackhole.zone can be downloaded from:
 // <https://raw.githubusercontent.com/parseword/nolovia/master/blackhole.zone>
 
-zone "facebook.com" IN { 
+zone "fb.com" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
-zone "facebook.net" IN { 
+zone "fb.me" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
-zone "fb.com" IN { 
+zone "fbcdn.com" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
-zone "fb.me" IN { 
+zone "fbcdn.net" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
-zone "fbcdn.com" IN { 
+zone "fbsbx.com" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
-zone "fbcdn.net" IN { 
+zone "fbsbx.net" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
-zone "fbsbx.com" IN { 
+zone "facebook.net" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
-zone "fbsbx.net" IN { 
+zone "facebook.com" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
 zone "facebook-program.com" IN {
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "facebookbrand.com" IN {
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "messenger.com" IN {
+    type master;
+    file "/path/to/blackhole.zone";
+};
+zone "meta.com" IN {
     type master;
     file "/path/to/blackhole.zone";
 };
